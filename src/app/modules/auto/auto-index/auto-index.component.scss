@@ -1,0 +1,9 @@
+@import "../../../styles/imports";
+
+.autos-index {
+  position: absolute;
+  top: map_get($header, height) + map_get($header, shadowH);
+  left: 0;
+  right: 0;
+  bottom: 0
+}

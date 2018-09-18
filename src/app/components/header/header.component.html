@@ -1,0 +1,15 @@
+<header class="header-wrapper">
+    <div class="container h-100">
+        <ul class="nav h-100 align-items-center position-relative" #navPanel>
+            <li class="nav-item pointer h-100" [routerLinkActive]="'active'">
+                <a class="nav-link h-100 d-flex align-items-center" [routerLink]="['index']">Info about developer</a>
+            </li>
+
+            <li class="nav-item pointer h-100" [routerLinkActive]="'active'">
+                <a class="nav-link h-100 d-flex align-items-center" [routerLink]="['autos']">Autos</a>
+            </li>
+
+            <div class="line-active position-absolute" #lineActive [style.width.px]="configActiveLine.width" [style.left.px]="configActiveLine.leftPos"></div>
+        </ul>
+    </div>
+</header>

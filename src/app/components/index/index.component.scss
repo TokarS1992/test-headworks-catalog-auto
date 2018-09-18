@@ -1,0 +1,5 @@
+@import "../../styles/imports";
+
+.about-developer-info{
+  @include w_h(100vw, calc(100vh - #{map_get($header, height) + map_get($header, shadowH)}));
+}

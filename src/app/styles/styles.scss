@@ -1,0 +1,16 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./mixins";
+@import "./variables";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  .pointer {
+    cursor: pointer;
+  }
+
+  button {
+    &:focus {
+      outline: none;
+    }
+  }
+}

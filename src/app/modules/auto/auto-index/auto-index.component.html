@@ -1,0 +1,9 @@
+<mat-sidenav-container class="autos-index">
+    <mat-sidenav #sidenav mode="side" opened [fixedInViewport]="false">
+        Sidenav
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <button mat-button (click)="sidenav.toggle()">Toggle</button>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,5 @@
+<app-header></app-header>
+
+<main class="main" [ngClass]="nameView ? nameView.toLowerCase().replace(' ', '-') + '-view' : ''">
+    <router-outlet></router-outlet>
+</main>
