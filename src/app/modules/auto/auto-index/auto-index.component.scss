@@ -24,7 +24,7 @@ $shw_header: map_get($header, shadowH);
 
     .toggle-menu {
       position: fixed;
-      z-index: 9999;
+      z-index: 999;
       background-color: #fff;
       @include w_h(100%, auto);
       span {

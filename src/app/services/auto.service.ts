@@ -14,14 +14,20 @@ export class AutoService {
 
   public getAutos(): Observable<any> {
       return this.http.get('/api/autos').pipe(
-          delay(500),
+          delay(400),
           map(data => {
               return data;
           })
       );
   }
 
-  public getAutoBySlug() {
-
+  public getAutoBySlug(slug?: string) {
+      return this.http.get(`/api/autos?title=${slug}`).pipe(
+          delay(400),
+          map(data => {
+              console.log(data);
+              return data;
+          })
+      );
   }
 }
