@@ -1,3 +1,63 @@
-<p>
-  auto-view-single works!
-</p>
+<div class="car-single-wrapper">
+    <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending">
+        <mat-spinner [diameter]="70"></mat-spinner>
+    </div>
+
+    <div class="container">
+        <div class="row back-page-container">
+            <div class="back-page-block pointer" (click)="comebackPage()">
+                <fa name="arrow-left"></fa>
+                <span style="margin-left: 10px;">Back</span>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col col-5 car-single">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>{{currentAuto.title}}</mat-card-title>
+                    </mat-card-header>
+
+                    <img src="{{currentAuto.url}}" alt="{{currentAuto.title}}" class="car-single__img">
+
+                    <mat-card-content>
+                        <mat-form-field class="example-full-width">
+                            <span>Mark:</span>
+                            <input matInput disabled value="{{currentAuto.mark}}">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <span>Color:</span>
+                            <input matInput disabled value="{{currentAuto.color}}">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <span>Type oil:</span>
+                            <input matInput disabled value="{{currentAuto.typeOil}}">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <span>Type carcase:</span>
+                            <input matInput disabled value="{{currentAuto.typeCarcase}}">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <span>Mileage:</span>
+                            <input matInput disabled value="{{currentAuto.mileage}} km">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <span>Status:</span>
+                            <input matInput disabled value="{{currentAuto.statusCar}}">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <span>Transmission:</span>
+                            <input matInput disabled value="{{currentAuto.transmission}}">
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

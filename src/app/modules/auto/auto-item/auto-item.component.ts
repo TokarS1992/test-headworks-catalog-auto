@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { SlugifyPipe } from '../../../shared/slugify.pipe';
 
+import { SlugifyPipe } from '../../../shared/slugify.pipe';
 import { Car } from '../../../interfaces/car';
 
 @Component({
@@ -17,11 +17,12 @@ export class AutoItemComponent implements OnInit {
         private slugify: SlugifyPipe
     ) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        console.log(this.carItem);
+    }
 
     navigateToSingeAuto() {
         const slug = this.slugify.transform(this.carItem.title);
-        console.log(slug);
         this.router.navigate([`/autos/${slug}`]);
     }
 }

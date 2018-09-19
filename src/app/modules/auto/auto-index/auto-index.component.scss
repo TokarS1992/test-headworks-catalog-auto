@@ -11,6 +11,8 @@ $shw_header: map_get($header, shadowH);
 
   .left-bar {
     border-right: 1px solid #c7bbbb;
+    width: 250px;
+    padding: 15px 20px;
   }
 
   .catalog-wrapper {

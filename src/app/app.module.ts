@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './modules/material/material.module';
 import { AutoModule } from './modules/auto/auto.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { SlugifyModule } from './modules/slugify/slugify.module';
+import { PipeModule } from './modules/pipe/pipe.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -22,7 +22,7 @@ import { InMemoryDataService } from './services/in-memory-data.service';
         IndexComponent
     ],
     imports: [
-        SlugifyModule,
+        PipeModule,
         AngularFontAwesomeModule,
         AutoModule,
         MaterialModule,

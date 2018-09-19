@@ -7,9 +7,9 @@ const maxMileage = 100000;
 const collectionID = 492901;
 const numImagesAvailable = 258;
 
-const autoParams: object = {
+export const autoParams = {
     typeCarcases: ['Седан', 'Минивэн', 'Хэтчбек', 'Купе', 'Пикап'],
-    typeOils: ['Седан', 'Минивэн', 'Хэтчбек', 'Купе', 'Пикап'],
+    typeOils: ['Бензин', 'Дизель', 'Другой', 'Гибрид', 'Электро'],
     colors: ['Белый', 'Черный', 'Синий', 'Серый', 'Зеленый', 'Жетлый', 'Крысный', 'Коричневый', 'Асфальт'],
     statusCars: ['Не бит', 'Не крашен', 'Не на ходу', 'Гаражное хранение'],
     transmissions: ['Механическая', 'Автоматическая', 'Адаптивная', 'Вариатор'],
@@ -27,9 +27,16 @@ export class InMemoryDataService implements InMemoryDbService {
   createDb() {
       const photos = [];
       const autos = [];
+      // const randomNumbersColection = [];
 
       for (let f = 0; f < autosLength; f++) {
-          photos.push(fetch(randomUrlCar(Math.floor(Math.random() * numImagesAvailable))));
+          const currentRandomNumber = Math.floor(Math.random() * numImagesAvailable);
+
+          // while (randomNumbersColection.indexOf(currentRandomNumber) > 0) {
+          //     currentRandomNumber = Math.floor(Math.random() * numImagesAvailable);
+          // }
+          // randomNumbersColection.push(currentRandomNumber);
+          photos.push(fetch(randomUrlCar(currentRandomNumber)));
       }
 
       return Promise.all(photos).then(res => {

@@ -1,9 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { AutoService } from '../../../services/auto.service';
 import { UnsubscriptionService } from '../../../services/unsubscription.service';
 import { Car } from '../../../interfaces/car';
+
+interface ISlug {
+    slugAuto?: string;
+}
+
+interface ISingleAuto {
+    [index: string]: any;
+}
 
 @Component({
     selector: 'app-auto-view-single',
@@ -12,25 +22,38 @@ import { Car } from '../../../interfaces/car';
 })
 export class AutoViewSingleComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
+    private pending = true;
+    private currentAuto: ISingleAuto = {};
+    private slugInfo: ISlug;
 
     constructor(
         private autoService: AutoService,
         private unsubscriptionService: UnsubscriptionService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private location: Location
     ) { }
 
     ngOnInit() {
-        console.log(this.activatedRoute);
-
-        const subsAutoServ = this.autoService.getAutoBySlug().subscribe((res: Car) => {
-            console.log(res);
+        const subscribeActiveRoute = this.activatedRoute.params.subscribe((data: ISlug) => {
+            this.slugInfo = data;
         });
 
-        this.subscriptions.push(subsAutoServ);
+        this.subscriptions.push(
+            this.autoService.getAutoBySlug(this.slugInfo.slugAuto.replace(/-/gi, ' ')).subscribe((auto: Car[]|Car|any[]) => {
+                this.pending = false;
+                this.currentAuto = auto[0];
+            })
+        );
+
+        this.subscriptions.push(subscribeActiveRoute);
     }
 
     ngOnDestroy() {
         this.unsubscriptionService.unsubscribeFromAllObservables(this.subscriptions);
+    }
+
+    comebackPage() {
+        this.location.back();
     }
 
 }

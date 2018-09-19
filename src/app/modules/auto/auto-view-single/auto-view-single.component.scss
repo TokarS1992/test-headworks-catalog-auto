@@ -1,0 +1,16 @@
+@import "../../../styles/imports";
+
+.car-single-wrapper {
+  margin-top: 30px;
+
+  .load-spinner {
+    @extend %spinner-form-styles;
+  }
+
+  .car-single {
+    &__img {
+      object-fit: cover;
+      @include w_h(100%, 300px);
+    }
+  }
+}

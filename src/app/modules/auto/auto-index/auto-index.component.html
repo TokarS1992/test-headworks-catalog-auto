@@ -1,6 +1,6 @@
 <mat-sidenav-container class="autos-index">
     <mat-sidenav #sidenav [mode]="'side'" [fixedInViewport]="false" [opened]="true" class="left-bar">
-        <app-auto-left-bar></app-auto-left-bar>
+        <app-auto-left-bar [filterParams]="filterParams"></app-auto-left-bar>
     </mat-sidenav>
 
     <mat-sidenav-content class="catalog-wrapper">
@@ -9,6 +9,7 @@
         </div>
 
         <div class="toggle-menu">
+            {{currentFilterParams}}
             <button mat-button (click)="sidenav.toggle()">
                 <fa name="bars"></fa>
                 <span>Toggle menu</span>
@@ -16,7 +17,16 @@
         </div>
 
         <div class="col col-12 catalog-autos">
-            <app-auto-item *ngFor="let auto of autos" [carItem]="auto"></app-auto-item>
+            <div class="col col-{{auto !== -1 ? 2 : 12}} float-left pointer" *ngFor="let auto of autos | filter : {title: filterParams.title,
+                                                                 typeOil: filterParams.typeOil,
+                                                                 typeCarcase: filterParams.typeCarcase,
+                                                                 statusCar: filterParams.statusCar,
+                                                                 transmission: filterParams.transmission
+                }">
+                <app-auto-item [carItem]="auto" *ngIf="auto !== -1"></app-auto-item>
+
+                <div *ngIf="auto === -1">None results</div>
+            </div>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

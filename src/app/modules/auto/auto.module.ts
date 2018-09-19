@@ -1,15 +1,20 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { SlugifyModule } from '../slugify/slugify.module';
+
+import { MaterialModule } from '../material/material.module';
+import { PipeModule } from '../pipe/pipe.module';
 import { SlugifyPipe } from '../../shared/slugify.pipe';
+import { FilterPipe } from '../../shared/filter.pipe';
 
 import * as AutosComponents from './index';
 
 @NgModule({
     imports: [
-        SlugifyModule,
+        FormsModule,
+        ReactiveFormsModule,
+        PipeModule,
         CommonModule,
         MaterialModule,
         AngularFontAwesomeModule
@@ -20,6 +25,6 @@ import * as AutosComponents from './index';
         AutosComponents.AutoIndexComponent,
         AutosComponents.AutoViewSingleComponent
     ],
-    providers: [ SlugifyPipe ]
+    providers: [ SlugifyPipe, FilterPipe ]
 })
 export class AutoModule { }
