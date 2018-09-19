@@ -1,8 +1,10 @@
 @import "../../styles/imports";
 
+$shw_header: map_get($header, shadowH);
+
 .header-wrapper {
   @include w_h(auto, map_get($header, height));
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 $shw_header $shw_header rgba(0, 0, 0, 0.24), 0 0 $shw_header rgba(0, 0, 0, 0.12);
 
   .nav {
     .nav-item.active {

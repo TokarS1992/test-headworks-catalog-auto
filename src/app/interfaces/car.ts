@@ -8,4 +8,5 @@ export interface Car {
     mileage: number;
     statusCar: string;
     transmission: string;
+    url: string;
 }

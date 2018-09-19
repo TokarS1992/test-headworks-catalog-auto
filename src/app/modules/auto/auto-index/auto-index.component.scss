@@ -1,9 +1,35 @@
 @import "../../../styles/imports";
 
+$shw_header: map_get($header, shadowH);
+
 .autos-index {
   position: absolute;
   top: map_get($header, height) + map_get($header, shadowH);
   left: 0;
   right: 0;
-  bottom: 0
+  bottom: 0;
+
+  .left-bar {
+    border-right: 1px solid #c7bbbb;
+  }
+
+  .catalog-wrapper {
+    .catalog-autos {
+      margin-top: 40px;
+    }
+
+    .load-spinner {
+      @extend %spinner-form-styles;
+    }
+
+    .toggle-menu {
+      position: fixed;
+      z-index: 9999;
+      background-color: #fff;
+      @include w_h(100%, auto);
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
 }

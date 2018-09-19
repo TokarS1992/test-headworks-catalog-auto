@@ -1,9 +1,22 @@
 <mat-sidenav-container class="autos-index">
-    <mat-sidenav #sidenav mode="side" opened [fixedInViewport]="false">
-        Sidenav
+    <mat-sidenav #sidenav [mode]="'side'" [fixedInViewport]="false" [opened]="true" class="left-bar">
+        <app-auto-left-bar></app-auto-left-bar>
     </mat-sidenav>
 
-    <mat-sidenav-content>
-        <button mat-button (click)="sidenav.toggle()">Toggle</button>
+    <mat-sidenav-content class="catalog-wrapper">
+        <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending">
+            <mat-spinner [diameter]="70"></mat-spinner>
+        </div>
+
+        <div class="toggle-menu">
+            <button mat-button (click)="sidenav.toggle()">
+                <fa name="bars"></fa>
+                <span>Toggle menu</span>
+            </button>
+        </div>
+
+        <div class="col col-12 catalog-autos">
+            <app-auto-item *ngFor="let auto of autos" [carItem]="auto"></app-auto-item>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

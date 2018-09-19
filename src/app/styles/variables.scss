@@ -1,1 +1,13 @@
+@import "./mixins";
+
 $header: (clr: #6C757C, height: 70px, bg: #F9F9F9, shadowH: 2px);
+$bg_clr_spinner: #544d4d4a;
+
+%spinner-form-styles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include w_h();
+  background-color: $bg_clr_spinner;
+  z-index: 9999;
+}

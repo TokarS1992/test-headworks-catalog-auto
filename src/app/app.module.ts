@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './modules/material/material.module';
@@ -22,6 +23,7 @@ import { SlugifyPipe } from './shared/slugify.pipe';
         SlugifyPipe
     ],
     imports: [
+        AngularFontAwesomeModule,
         AutoModule,
         MaterialModule,
         BrowserModule,

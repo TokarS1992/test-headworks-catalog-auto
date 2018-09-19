@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -19,6 +20,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ],
     declarations: [],
     exports: [
+        MatCardModule,
         MatInputModule,
         MatProgressSpinnerModule,
         MatSnackBarModule,

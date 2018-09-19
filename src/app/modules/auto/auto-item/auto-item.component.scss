@@ -1,0 +1,9 @@
+@import "../../../styles/imports";
+
+.car-item {
+  margin-bottom: 15px;
+  &__img {
+    object-fit: cover;
+    @include w_h(100%, 200px);
+  }
+}
