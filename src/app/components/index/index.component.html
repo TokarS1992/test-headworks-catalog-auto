@@ -1,3 +1,45 @@
-<div class="about-developer-info d-flex align-items-center justify-content-center">
-  About
+<div class="about-developer-info position-relative">
+    <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending.getStatus()">
+        <mat-spinner [diameter]="70"></mat-spinner>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col col-4 position-relative">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title> Developer: {{_.keys(userInfo).length ? userInfo.getFullName() : ''}} <fa name="pencil-square-o" class="pointer" style="margin-left: 5px" (click)="isUserEdit = true"></fa></mat-card-title>
+                    </mat-card-header>
+
+                    <img src="{{userInfo.avatarUrl ? userInfo.avatarUrl : './assets/avatar-none.jpg'}}" alt="{{userInfo.avatarUrl}}" class="about-developer-info__img">
+
+                    <mat-card-content>
+                        <mat-form-field class="w-100">
+                            <span>Email:</span>
+                            <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.email" type="email">
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <mat-select [(value)]="userInfo.city" [disabled]="!isUserEdit">
+                                <mat-option>None</mat-option>
+                                <mat-option *ngFor="let city of cities" [value]="city.name">
+                                    {{city.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <span>Address:</span>
+                            <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.address">
+                        </mat-form-field>
+
+                        <mat-card-actions *ngIf="isUserEdit" class="no-margin">
+                            <button mat-raised-button color="primary">Edit</button>
+                            <button mat-raised-button color="warn" (click)="cancelHandler()">Cancel</button>
+                        </mat-card-actions>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
 </div>

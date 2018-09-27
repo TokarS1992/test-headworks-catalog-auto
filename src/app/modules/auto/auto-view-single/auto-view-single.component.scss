@@ -1,7 +1,8 @@
 @import "../../../styles/imports";
 
 .car-single-wrapper {
-  margin-top: 30px;
+  @include w_h(100vw, calc(100vh - #{map_get($header, height) + map_get($header, shadowH)}));
+  padding-top: 30px;
 
   .load-spinner {
     @extend %spinner-form-styles;

@@ -4,7 +4,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="catalog-wrapper">
-        <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending">
+        <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending.getStatus()">
             <mat-spinner [diameter]="70"></mat-spinner>
         </div>
 

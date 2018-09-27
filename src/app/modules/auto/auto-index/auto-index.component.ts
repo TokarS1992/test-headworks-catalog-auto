@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {  } from 'rx';
 
 import { AutoService } from '../../../services/auto.service';
 import { UnsubscriptionService } from '../../../services/unsubscription.service';
+import { PendingService } from '../../../services/pending.service';
 import { Car } from '../../../interfaces/car';
 
 @Component({
@@ -14,7 +14,7 @@ import { Car } from '../../../interfaces/car';
 export class AutoIndexComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     private autos: Car[] = [];
-    private pending = true;
+    // private pending = true;
     private filterParams: object = {
         title: '',
         typeCarcase: null,
@@ -25,16 +25,18 @@ export class AutoIndexComponent implements OnInit, OnDestroy {
 
     constructor(
         private autoService: AutoService,
-        private unsubscribeService: UnsubscriptionService
+        private unsubscribeService: UnsubscriptionService,
+        private pending: PendingService
     ) {}
 
     ngOnInit() {
         localStorage.removeItem('currentAuto');
+        this.pending.setState(true);
 
         this.subscriptions.push(
             this.autoService.getAutos().subscribe((data: Car[]) => {
                 this.autos = data;
-                this.pending = false;
+                this.pending.setState(false);
             })
         );
     }

@@ -17,9 +17,7 @@ export class AutoItemComponent implements OnInit {
         private slugify: SlugifyPipe
     ) { }
 
-    ngOnInit() {
-        console.log(this.carItem);
-    }
+    ngOnInit() {}
 
     navigateToSingeAuto() {
         const slug = this.slugify.transform(this.carItem.title);
