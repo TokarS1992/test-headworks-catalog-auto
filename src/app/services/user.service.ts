@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, delay } from 'rxjs/operators';
 
-import { User, IUser } from '../interfaces/user';
+import { IUser } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class UserService {
         private http: HttpClient
     ) {}
 
-    getUserInfo(): Observable<User> {
+    getUserInfo(): Observable<IUser> {
         return this.http.get('/api/user-info').pipe(
-            map((data: IUser) => new User(data))
+            map((data: IUser) => data[0])
         );
     }
 
@@ -23,7 +23,9 @@ export class UserService {
         return this.http.get('/api/cities');
     }
 
-    updateUserInfo(): void {
-
+    updateUserInfo(dataInfo: IUser|any): Observable<IUser> {
+        return this.http.put(`/api/user-info/${dataInfo.id}`, dataInfo).pipe(
+            map((data: IUser) => data)
+        );
     }
 }

@@ -12,4 +12,12 @@
     @include w_h(100%, 285px);
     object-fit: contain;
   }
+
+  .load-img {
+    @include w_h(100%, 285px);
+    border: 1px dashed #111;
+    label {
+      @include w_h();
+    }
+  }
 }

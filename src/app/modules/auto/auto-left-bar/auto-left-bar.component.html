@@ -7,29 +7,31 @@
 </mat-form-field>
 
 <mat-form-field class="w-100">
-    <mat-select placeholder="Type carcase" [(ngModel)]="filterParams.typeCarcase">
+    <mat-select placeholder="Type carcase" [(ngModel)]="filterParams.typeCarcase" name="typeCarcase">
         <mat-option>None</mat-option>
         <mat-option value="{{carcase}}" *ngFor="let carcase of params.typeCarcases">{{carcase}}</mat-option>
     </mat-select>
 </mat-form-field>
 
 <mat-form-field class="w-100">
-    <mat-select placeholder="Type oil" [(ngModel)]="filterParams.typeOil">
+    <mat-select placeholder="Type oil" [(ngModel)]="filterParams.typeOil" name="typeOil">
         <mat-option>None</mat-option>
         <mat-option value="{{oil}}" *ngFor="let oil of params.typeOils">{{oil}}</mat-option>
     </mat-select>
 </mat-form-field>
 
 <mat-form-field class="w-100">
-    <mat-select placeholder="Status car" [(ngModel)]="filterParams.statusCar">
+    <mat-select placeholder="Status car" [(ngModel)]="filterParams.statusCar" name="statusCar">
         <mat-option>None</mat-option>
         <mat-option value="{{status}}" *ngFor="let status of params.statusCars">{{status}}</mat-option>
     </mat-select>
 </mat-form-field>
 
 <mat-form-field class="w-100">
-    <mat-select placeholder="Transmission" [(ngModel)]="filterParams.transmission">
+    <mat-select placeholder="Transmission" [(ngModel)]="filterParams.transmission" name="typeTransmission">
         <mat-option>None</mat-option>
         <mat-option value="{{transmission}}" *ngFor="let transmission of params.transmissions">{{transmission}}</mat-option>
     </mat-select>
 </mat-form-field>
+
+<button mat-raised-button color="primary" (click)="clearFilter()" *ngIf="checkParamsIsNotEmpty > 0">Clear filter</button>

@@ -6,7 +6,7 @@ import { UserService } from '../../services/user.service';
 import { UnsubscriptionService } from '../../services/unsubscription.service';
 import { PendingService } from '../../services/pending.service';
 import { UnderscoreService } from '../../services/underscore.service';
-import { User } from '../../interfaces/user';
+import { IUser } from '../../interfaces/user';
 
 @Component({
     selector: 'app-index',
@@ -15,10 +15,10 @@ import { User } from '../../interfaces/user';
 })
 export class IndexComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
-    private userInfo: User|object = {};
+    private userInfo: IUser|object = {};
     private isUserEdit: false;
     private cities = [];
-    private userInfoDamp: User = null;
+    private userInfoDamp: IUser = null;
 
     constructor(
       private userService: UserService,
@@ -31,7 +31,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         this.pending.setState(true);
 
         this.subscriptions.push(
-            this.userService.getUserInfo().subscribe((userInfo: User) => {
+            this.userService.getUserInfo().subscribe((userInfo: IUser) => {
                 this.userInfo = userInfo;
                 this.userInfoDamp = _.clone(this.userInfo);
                 this.pending.setState(false);
@@ -46,11 +46,29 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
 
     cancelHandler() {
+        this.isUserEdit = false;
         this.userInfo = this.userInfoDamp;
     }
 
+    editInfo() {
+        this.pending.setState(true);
+
+        this.subscriptions.push(
+            this.userService.updateUserInfo(this.userInfo).subscribe((data: IUser) => {
+                this.pending.setState(false);
+                this.isUserEdit = false;
+            })
+        );
+    }
+
+    // loadImage(e) {
+    //     this.uploadService.postPhoto().subscribe(data => {
+    //         console.log(data);
+    //     });
+    //     console.log(e);
+    // }
+
     ngOnDestroy() {
-        console.log(this.userInfo);
         this.unsubscribeService.unsubscribeFromAllObservables(this.subscriptions);
     }
 }

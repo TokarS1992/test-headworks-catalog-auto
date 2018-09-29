@@ -75,14 +75,15 @@ export class InMemoryDataService implements InMemoryDbService {
       return Promise.all(photos).then(dataPhotos => callBackLoadAllPhotos(dataPhotos)).then(dataAutos => {
           return {
               autos: dataAutos,
-              'user-info': {
+              'user-info': [{
+                  id: 1,
                   email: 'sergey.tokar1992@gmail.com',
                   city: 'Днепр',
                   address: 'проспект Поля, дом 135, кв. 13',
                   avatarUrl: '',
                   name: 'Sergey',
                   surname: 'Tokar'
-              },
+              }],
               cities: [
                   {name: 'Днепр', id: 1},
                   {name: 'Киев', id: 2},

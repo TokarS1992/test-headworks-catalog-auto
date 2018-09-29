@@ -1,44 +1,56 @@
 <div class="about-developer-info position-relative">
     <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending.getStatus()">
         <mat-spinner [diameter]="70"></mat-spinner>
+        <span class="load-spinner__text" *ngIf="isUserEdit" style="margin-left: 5px;">Pending...</span>
     </div>
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-4 position-relative">
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title> Developer: {{_.keys(userInfo).length ? userInfo.getFullName() : ''}} <fa name="pencil-square-o" class="pointer" style="margin-left: 5px" (click)="isUserEdit = true"></fa></mat-card-title>
-                    </mat-card-header>
+                <form (submit)="editInfo()" name="form-info-developer">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title> Developer: {{ userInfo.name }} {{ userInfo.surname }}
+                                <fa name="pencil-square-o" class="pointer" style="margin-left: 5px" (click)="isUserEdit = true" title="Edit info"></fa>
+                            </mat-card-title>
+                        </mat-card-header>
 
-                    <img src="{{userInfo.avatarUrl ? userInfo.avatarUrl : './assets/avatar-none.jpg'}}" alt="{{userInfo.avatarUrl}}" class="about-developer-info__img">
+                        <img src="{{userInfo.avatarUrl ? userInfo.avatarUrl : './assets/avatar-none.jpg'}}" alt="{{userInfo.avatarUrl}}" class="about-developer-info__img">
 
-                    <mat-card-content>
-                        <mat-form-field class="w-100">
-                            <span>Email:</span>
-                            <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.email" type="email">
-                        </mat-form-field>
+                    <!--    <div class="load-img" *ngIf="isUserEdit">
+                            <label for="fileToUpload" class="d-flex justify-content-center align-items-center no-margin pointer">
+                                <fa name="cloud-download" size="5x"></fa>
+                            </label>
 
-                        <mat-form-field class="w-100">
-                            <mat-select [(value)]="userInfo.city" [disabled]="!isUserEdit">
-                                <mat-option>None</mat-option>
-                                <mat-option *ngFor="let city of cities" [value]="city.name">
-                                    {{city.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                            <input id="fileToUpload" type="file" style="display:none;" (change)="loadImage($event)">
+                        </div>-->
 
-                        <mat-form-field class="w-100">
-                            <span>Address:</span>
-                            <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.address">
-                        </mat-form-field>
+                        <mat-card-content>
+                            <mat-form-field class="w-100">
+                                <span>Email:</span>
+                                <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.email" type="email" name="email">
+                            </mat-form-field>
 
-                        <mat-card-actions *ngIf="isUserEdit" class="no-margin">
-                            <button mat-raised-button color="primary">Edit</button>
-                            <button mat-raised-button color="warn" (click)="cancelHandler()">Cancel</button>
-                        </mat-card-actions>
-                    </mat-card-content>
-                </mat-card>
+                            <mat-form-field class="w-100">
+                                <mat-select [(value)]="userInfo.city" [disabled]="!isUserEdit" name="city">
+                                    <mat-option *ngFor="let city of cities" [value]="city.name">
+                                        {{city.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-100">
+                                <span>Address:</span>
+                                <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.address" name="address">
+                            </mat-form-field>
+
+                            <mat-card-actions *ngIf="isUserEdit" class="no-margin">
+                                <button mat-raised-button color="primary" type="submit">Edit</button>
+                                <button mat-raised-button color="warn" (click)="cancelHandler()">Cancel</button>
+                            </mat-card-actions>
+                        </mat-card-content>
+                    </mat-card>
+                </form>
             </div>
         </div>
     </div>

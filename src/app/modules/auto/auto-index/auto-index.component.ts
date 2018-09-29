@@ -6,6 +6,14 @@ import { UnsubscriptionService } from '../../../services/unsubscription.service'
 import { PendingService } from '../../../services/pending.service';
 import { Car } from '../../../interfaces/car';
 
+interface IFilter {
+    title: string;
+    typeCarcase: string|null;
+    statusCar: string|null;
+    typeOil: string|null;
+    transmission: string|null;
+}
+
 @Component({
     selector: 'app-auto-index',
     templateUrl: './auto-index.component.html',
@@ -14,8 +22,7 @@ import { Car } from '../../../interfaces/car';
 export class AutoIndexComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     private autos: Car[] = [];
-    // private pending = true;
-    private filterParams: object = {
+    private filterParams: IFilter = {
         title: '',
         typeCarcase: null,
         statusCar: null,
@@ -39,6 +46,10 @@ export class AutoIndexComponent implements OnInit, OnDestroy {
                 this.pending.setState(false);
             })
         );
+    }
+
+    handlerClearFilter() {
+        this.filterParams = { title: '', typeCarcase: null, statusCar: null, typeOil: null, transmission: null };
     }
 
     ngOnDestroy() {

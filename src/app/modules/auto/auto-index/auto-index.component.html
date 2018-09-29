@@ -1,6 +1,6 @@
 <mat-sidenav-container class="autos-index">
     <mat-sidenav #sidenav [mode]="'side'" [fixedInViewport]="false" [opened]="true" class="left-bar">
-        <app-auto-left-bar [filterParams]="filterParams"></app-auto-left-bar>
+        <app-auto-left-bar [filterParams]="filterParams" (changeFilter)="handlerClearFilter($event)"></app-auto-left-bar>
     </mat-sidenav>
 
     <mat-sidenav-content class="catalog-wrapper">
@@ -9,7 +9,6 @@
         </div>
 
         <div class="toggle-menu">
-            {{currentFilterParams}}
             <button mat-button (click)="sidenav.toggle()">
                 <fa name="bars"></fa>
                 <span>Toggle menu</span>
