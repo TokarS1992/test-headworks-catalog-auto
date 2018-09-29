@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.set('port', port);
-app.use('/back', api);
+app.use('/api-back', api);
 
 /**
  * Create HTTP server.

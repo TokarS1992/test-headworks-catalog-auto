@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import * as _ from 'underscore';
+import { FormGroup , FormControl, Validators } from '@angular/forms';
 
 import { UserService } from '../../services/user.service';
 import { UnsubscriptionService } from '../../services/unsubscription.service';
 import { PendingService } from '../../services/pending.service';
-import { UnderscoreService } from '../../services/underscore.service';
 import { IUser } from '../../interfaces/user';
+import { phoneValidator } from '../../utils/phoneValidator';
 
 @Component({
     selector: 'app-index',
@@ -15,26 +15,60 @@ import { IUser } from '../../interfaces/user';
 })
 export class IndexComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
-    private userInfo: IUser|object = {};
-    private isUserEdit: false;
     private cities = [];
     private userInfoDamp: IUser = null;
+    private userInfoForm: FormGroup;
 
     constructor(
       private userService: UserService,
       private unsubscribeService: UnsubscriptionService,
-      private pending: PendingService,
-      private _: UnderscoreService
+      private pending: PendingService
     ) { }
 
     ngOnInit() {
         this.pending.setState(true);
 
+        this.userInfoForm = new FormGroup({
+            name: new FormControl('', [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(20)
+            ]),
+            surname: new FormControl('', [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(20)
+            ]),
+            email: new FormControl('', [
+                Validators.required,
+                Validators.email
+            ]),
+            phone: new FormControl('', [
+                Validators.required,
+                Validators.minLength(10),
+                Validators.maxLength(13),
+                phoneValidator
+            ]),
+            address: new FormControl('', [
+                Validators.required
+            ]),
+            city: new FormControl(),
+            avatarUrl: new FormControl()
+        });
+
+        this.userInfoForm.disable();
+
         this.subscriptions.push(
             this.userService.getUserInfo().subscribe((userInfo: IUser) => {
-                this.userInfo = userInfo;
-                this.userInfoDamp = _.clone(this.userInfo);
+                this.userInfoDamp = userInfo;
                 this.pending.setState(false);
+                this.userInfoForm.patchValue(userInfo);
+
+                for (const key in userInfo) {
+                    if (!this.userInfoForm.controls[key]) this.userInfoForm.addControl(key, new FormControl(userInfo[key]));
+                }
+
+                this.userInfoForm.disable();
             })
         );
 
@@ -45,28 +79,16 @@ export class IndexComponent implements OnInit, OnDestroy {
         );
     }
 
-    cancelHandler() {
-        this.isUserEdit = false;
-        this.userInfo = this.userInfoDamp;
-    }
-
     editInfo() {
         this.pending.setState(true);
 
         this.subscriptions.push(
-            this.userService.updateUserInfo(this.userInfo).subscribe((data: IUser) => {
+            this.userService.updateUserInfo(this.userInfoForm.value).subscribe(() => {
                 this.pending.setState(false);
-                this.isUserEdit = false;
+                this.userInfoForm.disable();
             })
         );
     }
-
-    // loadImage(e) {
-    //     this.uploadService.postPhoto().subscribe(data => {
-    //         console.log(data);
-    //     });
-    //     console.log(e);
-    // }
 
     ngOnDestroy() {
         this.unsubscribeService.unsubscribeFromAllObservables(this.subscriptions);

@@ -25,6 +25,7 @@ export class UserService {
 
     updateUserInfo(dataInfo: IUser|any): Observable<IUser> {
         return this.http.put(`/api/user-info/${dataInfo.id}`, dataInfo).pipe(
+            delay(500),
             map((data: IUser) => data)
         );
     }

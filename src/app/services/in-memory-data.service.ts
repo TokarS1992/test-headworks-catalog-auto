@@ -38,8 +38,8 @@ const generateObjectCar = () => {
     return function (url) {
         for (const p in autoParams) {
             if (autoParams.hasOwnProperty(p)) {
-                const keys = autoParams[p];
-                auto[p.replace(/s$/ig, '')] = keys[Random(0, keys.length - 1)];
+                const characteristics = autoParams[p];
+                auto[p.replace(/s$/ig, '')] = characteristics[Random(0, characteristics.length - 1)];
             }
         }
 
@@ -81,8 +81,9 @@ export class InMemoryDataService implements InMemoryDbService {
                   city: 'Днепр',
                   address: 'проспект Поля, дом 135, кв. 13',
                   avatarUrl: '',
-                  name: 'Sergey',
-                  surname: 'Tokar'
+                  name: 'Сергей',
+                  surname: 'Токарь',
+                  phone: '0939149220'
               }],
               cities: [
                   {name: 'Днепр', id: 1},

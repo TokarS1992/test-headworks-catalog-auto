@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -15,17 +14,16 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IndexComponent } from './components/index/index.component';
 import { InMemoryDataService } from './services/in-memory-data.service';
-import { AutoService } from './services/auto.service';
-import { UserService } from './services/user.service';
+import { LocalDirective } from './directives/local.directive';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        IndexComponent
+        IndexComponent,
+        LocalDirective
     ],
     imports: [
-        HttpModule,
         PipeModule,
         AngularFontAwesomeModule,
         AutoModule,

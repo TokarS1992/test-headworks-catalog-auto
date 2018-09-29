@@ -1,38 +1,109 @@
 <div class="about-developer-info position-relative">
     <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending.getStatus()">
         <mat-spinner [diameter]="70"></mat-spinner>
-        <span class="load-spinner__text" *ngIf="isUserEdit" style="margin-left: 5px;">Pending...</span>
+        <span class="load-spinner__text" *ngIf="userInfoForm.status !== 'DISABLED'" style="margin-left: 5px;">Pending...</span>
     </div>
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-4 position-relative">
-                <form (submit)="editInfo()" name="form-info-developer">
+                <form
+                        (submit)="editInfo()"
+                        name="form-info-developer"
+                        [formGroup]="userInfoForm"
+                        #locals="localVariables"
+                        [localVariables]="{
+                            name: userInfoForm.controls['name'],
+                            surname: userInfoForm.controls['surname'],
+                            email: userInfoForm.controls['email'],
+                            phone: userInfoForm.controls['phone'],
+                            address: userInfoForm.controls['address'],
+                            city: userInfoForm.controls['city'],
+                            avatarUrl: userInfoForm.controls['avatarUrl']
+                        }"
+                        novalidate
+                >
                     <mat-card>
                         <mat-card-header>
-                            <mat-card-title> Developer: {{ userInfo.name }} {{ userInfo.surname }}
-                                <fa name="pencil-square-o" class="pointer" style="margin-left: 5px" (click)="isUserEdit = true" title="Edit info"></fa>
+                            <mat-card-title *ngIf="userInfoForm.status === 'DISABLED'"> Developer: {{ locals.name.value }} {{ locals.surname.value }}
+                                <fa name="pencil-square-o" class="pointer" style="margin-left: 5px" (click)="userInfoForm.enable()" title="Edit info"></fa>
                             </mat-card-title>
                         </mat-card-header>
 
-                        <img src="{{userInfo.avatarUrl ? userInfo.avatarUrl : './assets/avatar-none.jpg'}}" alt="{{userInfo.avatarUrl}}" class="about-developer-info__img">
-
-                    <!--    <div class="load-img" *ngIf="isUserEdit">
-                            <label for="fileToUpload" class="d-flex justify-content-center align-items-center no-margin pointer">
-                                <fa name="cloud-download" size="5x"></fa>
-                            </label>
-
-                            <input id="fileToUpload" type="file" style="display:none;" (change)="loadImage($event)">
-                        </div>-->
+                        <img src="{{locals.avatarUrl.value ? locals.avatarUrl.value : './assets/avatar-none.jpg'}}" alt="{{locals.avatarUrl.value}}" class="about-developer-info__img">
 
                         <mat-card-content>
                             <mat-form-field class="w-100">
-                                <span>Email:</span>
-                                <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.email" type="email" name="email">
+                                <span>First name:</span>
+                                <input matInput type="text" [formControl]="locals.name">
+
+                                <mat-error *ngIf="locals.name.hasError('required')">
+                                    Name is <strong>required</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.name.hasError('minlength')">
+                                    Name must is <strong>minimum 2 symbols</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.name.hasError('maxlength')">
+                                    Name must is<strong>20 symbols</strong> maximum
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field class="w-100">
-                                <mat-select [(value)]="userInfo.city" [disabled]="!isUserEdit" name="city">
+                                <span>Last name:</span>
+                                <input matInput type="text" [formControl]="locals.surname">
+
+                                <mat-error *ngIf="locals.surname.hasError('required')">
+                                    Surname is <strong>required</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.surname.hasError('minlength')">
+                                    Surname must is <strong>minimum 2 symbols</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.surname.hasError('maxlength')">
+                                    Surname must is <strong>20 symbols</strong> maximum
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-100">
+                                <span>Email:</span>
+                                <input matInput type="email" [formControl]="locals.email">
+
+                                <mat-error *ngIf="locals.email.hasError('required')">
+                                    Email is <strong>required</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.email.hasError('email')">
+                                    Email is invalid<strong>Correct: example@gmail.com</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-100">
+                                <span>Phone:</span>
+                                <input matInput type="tel" [formControl]="locals.phone">
+
+                                <mat-error *ngIf="locals.phone.hasError('required')">
+                                    Phone is <strong>required</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.phone.hasError('minlength')">
+                                    Phone must is <strong>10 symbols</strong> minimum
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.phone.hasError('maxlength')">
+                                    Phone must is <strong>13 symbols</strong> maximum
+                                </mat-error>
+
+                                <mat-error *ngIf="locals.phone.errors?.errorPhone && (locals.phone.touched || locals.phone.dirty)">
+                                    Please enter only numbers
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="w-100">
+                                <span>City:</span>
+                                <mat-select [(value)]="locals.city.value" [disabled]="userInfoForm.status === 'DISABLED'" (selectionChange)="locals.city.patchValue($event.value)">
                                     <mat-option *ngFor="let city of cities" [value]="city.name">
                                         {{city.name}}
                                     </mat-option>
@@ -41,12 +112,16 @@
 
                             <mat-form-field class="w-100">
                                 <span>Address:</span>
-                                <input matInput [disabled]="!isUserEdit" [(ngModel)]="userInfo.address" name="address">
+                                <input matInput [formControl]="locals.address">
+
+                                <mat-error *ngIf="locals.address.hasError('required')">
+                                    Address is <strong>required</strong>
+                                </mat-error>
                             </mat-form-field>
 
-                            <mat-card-actions *ngIf="isUserEdit" class="no-margin">
-                                <button mat-raised-button color="primary" type="submit">Edit</button>
-                                <button mat-raised-button color="warn" (click)="cancelHandler()">Cancel</button>
+                            <mat-card-actions *ngIf="userInfoForm.status !== 'DISABLED'" class="no-margin">
+                                <button mat-raised-button color="primary" type="submit" [disabled]="userInfoForm.invalid">Edit</button>
+                                <button mat-raised-button color="warn" (click)="userInfoForm.disable(); userInfoForm.patchValue(userInfoDamp)">Cancel</button>
                             </mat-card-actions>
                         </mat-card-content>
                     </mat-card>

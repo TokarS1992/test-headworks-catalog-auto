@@ -6,4 +6,5 @@ export interface IUser {
     address: string;
     avatarUrl: string;
     id: number;
+    phone: number;
 }
