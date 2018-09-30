@@ -11,7 +11,8 @@ import { phoneValidator } from '../../utils/phoneValidator';
 @Component({
     selector: 'app-index',
     templateUrl: './index.component.html',
-    styleUrls: ['./index.component.scss']
+    styleUrls: ['./index.component.scss'],
+    providers: [ PendingService ]
 })
 export class IndexComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
@@ -26,7 +27,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.pending.setState(true);
+        // this.pending.setState(true);
 
         this.userInfoForm = new FormGroup({
             name: new FormControl('', [

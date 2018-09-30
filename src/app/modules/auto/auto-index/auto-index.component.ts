@@ -17,7 +17,8 @@ interface IFilter {
 @Component({
     selector: 'app-auto-index',
     templateUrl: './auto-index.component.html',
-    styleUrls: ['./auto-index.component.scss']
+    styleUrls: ['./auto-index.component.scss'],
+    providers: [ PendingService ]
 })
 export class AutoIndexComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
@@ -38,7 +39,7 @@ export class AutoIndexComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         localStorage.removeItem('currentAuto');
-        this.pending.setState(true);
+        // this.pending.setState(true);
 
         this.subscriptions.push(
             this.autoService.getAutos().subscribe((data: Car[]) => {

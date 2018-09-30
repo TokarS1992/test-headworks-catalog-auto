@@ -1,7 +1,7 @@
 <div class="about-developer-info position-relative">
     <div class="load-spinner d-flex justify-content-center align-items-center" *ngIf="pending.getStatus()">
         <mat-spinner [diameter]="70"></mat-spinner>
-        <span class="load-spinner__text" *ngIf="userInfoForm.status !== 'DISABLED'" style="margin-left: 5px;">Pending...</span>
+        <span class="load-spinner__text" *ngIf="userInfoForm.status !== 'DISABLED'" style="margin-left: 5px;">Updating...</span>
     </div>
 
     <div class="container">
@@ -76,7 +76,7 @@
                                 </mat-error>
 
                                 <mat-error *ngIf="locals.email.hasError('email')">
-                                    Email is invalid<strong>Correct: example@gmail.com</strong>
+                                    Email is invalid. <strong>Correct: example@gmail.com</strong>
                                 </mat-error>
                             </mat-form-field>
 

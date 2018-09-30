@@ -19,7 +19,8 @@ interface ISingleAuto {
 @Component({
     selector: 'app-auto-view-single',
     templateUrl: './auto-view-single.component.html',
-    styleUrls: ['./auto-view-single.component.scss']
+    styleUrls: ['./auto-view-single.component.scss'],
+    providers: [ PendingService ]
 })
 export class AutoViewSingleComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
@@ -39,7 +40,7 @@ export class AutoViewSingleComponent implements OnInit, OnDestroy {
             this.slugInfo = data;
         }));
 
-        this.pending.setState(true);
+        // this.pending.setState(true);
 
         this.subscriptions.push(
             this.autoService.getAutoBySlug(this.slugInfo.slugAuto.replace(/-/gi, ' ')).subscribe((auto: Car[]|Car|any[]) => {
