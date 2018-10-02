@@ -39,7 +39,6 @@ export class AutoIndexComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         localStorage.removeItem('currentAuto');
-        // this.pending.setState(true);
 
         this.subscriptions.push(
             this.autoService.getAutos().subscribe((data: Car[]) => {

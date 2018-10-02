@@ -40,8 +40,6 @@ export class AutoViewSingleComponent implements OnInit, OnDestroy {
             this.slugInfo = data;
         }));
 
-        // this.pending.setState(true);
-
         this.subscriptions.push(
             this.autoService.getAutoBySlug(this.slugInfo.slugAuto.replace(/-/gi, ' ')).subscribe((auto: Car[]|Car|any[]) => {
                 this.pending.setState(false);
